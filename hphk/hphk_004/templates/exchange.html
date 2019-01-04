@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> 웹툰 모아보기 </title>
+    </head>
+    <body>
+        <h2> 일일 환율 </h2>
+        
+        
+        <table>
+            <thead>
+                <tr>
+                    <th> 통화표시 </th>
+                    <th> 통화명 </th>
+                    <th> 매매기준가 </th>
+                    <th> 살때 </th>
+                    <th> 팔때 </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for exchange in ex: %}
+                <tr>
+                    <td>{{ exchange["pyosi"] }}</td>
+                    <td>{{ exchange["name"] }}</td>
+                    <td>{{ exchange["avg"] }}</td>
+                    <td>{{ exchange["buy"] }}</td>
+                    <td>{{ exchange["sell"] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> 웹툰 모아보기 </title>
+    </head>
+    <body>
+        <h2> 너님 지금 {{ cat }} 웹툰을 찾은거 맞음? </h2>
+        
+        <a href="/toon?type=naver/right"><button>맞음</button></a>
+        <a href="/toon?type=naver/wrong"><button>아님</button></a>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th> 썸네일 </th>
+                    <th> 웹툰 제목 </th>
+                    <th> 웹툰 링크 </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for toon in t: %}
+                <tr>
+                    
+                    <td><img src ="{{ toon["img_url"] }}"</td>
+                    <td>{{ toon["title"] }}</td>
+                    <td><a href="{{ toon["url"] }}"<button> 웹툰 보러가기 </button></a></td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+    </body>
+</html>
