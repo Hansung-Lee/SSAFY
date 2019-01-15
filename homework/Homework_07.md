@@ -43,9 +43,7 @@ p2.greeting()
 ``` python
 # 정답
 class Person():
-	age = 0
-	
-	def __init__(self, name, age):
+	def __init__(self, name, age=0):
 		self.name = name
 		self.age = age
 		
