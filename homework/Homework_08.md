@@ -18,7 +18,8 @@ sudo pip install Flask
 
 3. 다음은 가장 기본적인 구조의 Flask 코드이다. (a)에 들어갈 코드를 작성하고, 이 코드가 의미하는 것을 설명하시오.  
 
-![1547541093331](C:\Users\student\AppData\Roaming\Typora\typora-user-images\1547541093331.png)  
+![image](https://user-images.githubusercontent.com/30791915/51462342-b086a680-1da3-11e9-958e-0f23fad410d7.png)
+
 
 ```
 from flask import Flask
