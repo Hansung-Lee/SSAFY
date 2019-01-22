@@ -1,0 +1,32 @@
+.salmon {
+    color: darksalmon;
+    font-size: 20px;
+    font-style: italic;
+    /* font-family: 'Noto Sans KR', sans-serif; */
+    font-family: 'Jua', sans-serif;
+    font-weight: bold;
+}
+.square {
+    list-style-type: square;
+}
+body {
+    background-color: blanchedalmond;
+}
+li {
+    color:darkcyan;
+}
+h1 {
+    color: indianred;
+}
+h2 {
+    color: rgb(168, 63, 14);
+}
+h3 {
+    color: darkolivegreen;
+}
+hr {
+    height: 1px;
+    color: gray;
+    background-color: gray;
+    border: none;
+}

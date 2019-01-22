@@ -1,0 +1,36 @@
+p {
+    /* width: 600px; */
+    /* height: 50%; */
+    /* margin: 1em; 4방향 모두 여백을 준다 */
+    /* margin: 16px 20px 24px 28px; top right bottom left 순서 */
+    /* margin: auto; 자동 여백 */
+    /* text-align: center; */
+    width: 500px;
+    margin: 16px;
+
+    /* border-style: solid;
+    border-width: 8px; 4방향 따로 width 할당 가능
+    border-color: aqua */
+    border: 2px dotted red; /* width style color 순서, 생략시 default 값 */
+    display: inline;
+}
+
+a {
+    margin: 20px; /* a 태그는 inline 이기 때문에
+    상하가 아닌 좌우만 마진 적용 상하 여백은 line-height로 지정 */
+    padding: 10px;
+}
+
+.inline {
+    display: inline;
+}
+
+.block {
+    display: block;
+}
+
+span {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
