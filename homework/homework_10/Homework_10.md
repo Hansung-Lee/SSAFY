@@ -28,7 +28,10 @@ rem
 
 ![image](https://user-images.githubusercontent.com/30791915/51462264-8208cb80-1da3-11e9-93a1-6418177acfd5.png)
 
-``` html
-<>
+``` 
+후손 셀렉터(descendant selector)는 문서 구조에서 특정 요소의 자손을 선택하는 셀렉터입니다.
+(후손은 자식, 손자, 그리고 이후에 후손을 모두 포함)
 
+자식 셀렉터(child selector)는 특정 요소의 직계 자식만 선택하는 셀렉터입니다.
+(자식 이후 손자, 후손들 포함하지 않음)
 ```
