@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>익명 질문 앱</title>
+</head>
+<body>
+    <form action = "/ask">
+        <h1> 익명 질문 앱 </h1>
+        <p> 익명으로 질문하세요. </p>
+        <input type="text" name="question"/>
+        <input type="submit" value="질문하기"/>
+    </form>
+    
+    <hr>
+    <table>
+        <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">질문</th>
+              <th scope="col">작성시간</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for quest in questions %}
+                <tr>
+                    <th scope="row">{{quest.id}}</th>
+                    <td>{{quest.content}}</td>
+                    <td>{{quest.time}}</td>
+                    <td>
+                        <a href="/delete/{{quest.id}}">[삭제]</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+</body>
+</html>
