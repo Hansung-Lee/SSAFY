@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <title>영화 정보 수정</title>
+</head>
+<body>
+    <form class="m-3" action="/movies/{{movie.id}}/update">
+        <div class="form-group row">
+            <div class="input-group mx-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">영화명</span>
+                </div>
+                <input type="text" name="title" aria-label="title" class="form-control" placeholder="영화명을 입력하세요." value="{{movie.title}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="input-group mx-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">영화명(영문)</span>
+                </div>
+                <input type="text" name="title_en" aria-label="title_en" class="form-control" placeholder="영화명(영문)을 입력하세요." value="{{movie.title_en}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="input-group mx-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">누적 관객수</span>
+                </div>
+                <input type="number" name="audience" aria-label="audience" class="form-control" placeholder="누적 관객수를 입력하세요." value="{{movie.audience}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="input-group mx-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">개봉일</span>
+                </div>
+                <input type="date" name="open_date" aria-label="open_date" class="form-control" placeholder="개봉일을 입력하세요." value="{{movie.open_date}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="input-group mx-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">장르</span>
+                </div>
+                <input type="text" name="genre" aria-label="genre" class="form-control" placeholder="장르를 입력하세요." value="{{movie.genre}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="input-group mx-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">관람등급</span>
+                </div>
+                <input type="text" name="watch_grade" aria-label="watch_grade" class="form-control" placeholder="관람등급을 입력하세요." value="{{movie.watch_grade}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="input-group mx-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">평점</span>
+                </div>
+                <input type="number" min="0" max="5" step="0.5" name="score" aria-label="score" class="form-control" placeholder="평점을 입력하세요." value="{{movie.score}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="input-group mx-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">포스터 이미지 URL</span>
+                </div>
+                <input type="text" name="poster_url" aria-label="poster_url" class="form-control" placeholder="포스터 이미지 URL을 입력하세요." value="{{movie.poster_url}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="input-group mx-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">영화소개</span>
+                </div>
+                <textarea name="description" aria-label="description" class="form-control" placeholder="영화소개를 입력하세요.">{{movie.description}}</textarea>
+            </div>
+        </div>
+      <button type="submit" class="btn btn-primary">수정</button>
+    </form>
+    
+</body>
+</html>
