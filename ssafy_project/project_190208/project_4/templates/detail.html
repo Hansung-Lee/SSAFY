@@ -1,24 +1,17 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <title>영화 정보 조회</title>
-</head>
-<body>
-    <div class="jumbotron">
-        <h1 class="display-4"><img src="{{movie.poster_url}}" alt="Movie Poster" width="250" height="300"> {{movie.title}} ({{movie.title_en}})</h1>
-        <p class="lead"> {{movie.genre}} | {{movie.open_date}}개봉 | {{movie.watch_grade}} | 누적관객: {{movie.audience}}명 | 평점: <img src="{{star.img_url}}" alt="Star Rating"> {{movie.score}}</p>
-        <hr class="my-4">
-        <p>{{movie.description}}</p>
-        <a class="btn btn-primary" href="/movies" role="button">목록</a>
-        <a class="btn btn-primary" href="/movies/{{movie.id}}/edit" role="button">수정</a>
-        <a class="btn btn-primary" href="/movies/{{movie.id}}/delete" role="button">삭제</a>
-    </div>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}
+<title>영화 정보 조회</title>
+{% endblock %}
+
+{% block body %}
+<div class="jumbotron">
+    <h1 class="display-4"><img src="{{movie.poster_url}}" alt="Movie Poster" width="250" height="300"> {{movie.title}} ({{movie.title_en}})</h1>
+    <p class="lead"> {{movie.genre}} | {{movie.open_date}}개봉 | {{movie.watch_grade}} | 누적관객: {{movie.audience}}명 | 평점: <img src="{{star.img_url}}" alt="Star Rating"> {{movie.score}}</p>
+    <hr class="my-4">
+    <p>{{movie.description}}</p>
+    <a class="btn btn-primary" href="/movies" role="button">목록</a>
+    <a class="btn btn-primary" href="/movies/{{movie.id}}/edit" role="button">수정</a>
+    <a class="btn btn-primary" href="/movies/{{movie.id}}/delete" role="button">삭제</a>
+</div>
+{% endblock %}

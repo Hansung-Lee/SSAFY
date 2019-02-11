@@ -11,24 +11,31 @@ db = SQLAlchemy(app)
 db.init_app(app)
 class Movie(db.Model):
     __tablename__ = "movies"
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    __table_args__ = {'sqlite_autoincrement': True}
+    id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, unique=True, nullable=False)
-    title_en = db.Column(db.String)
-    audience = db.Column(db.Integer)
-    open_date = db.Column(db.String)
-    genre = db.Column(db.String)
-    watch_grade = db.Column(db.String)
-    score = db.Column(db.Float)
-    poster_url = db.Column(db.TEXT)
-    description = db.Column(db.TEXT)
+    title_en = db.Column(db.String, nullable=False)
+    audience = db.Column(db.Integer, nullable=False)
+    open_date = db.Column(db.String, nullable=False)
+    genre = db.Column(db.String, nullable=False)
+    watch_grade = db.Column(db.String, nullable=False)
+    score = db.Column(db.Float, nullable=False)
+    poster_url = db.Column(db.TEXT, nullable=False)
+    description = db.Column(db.TEXT, nullable=False)
 
 class Star(db.Model):
     __tablename__ = "starrating"
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    score = db.Column(db.Float)
-    img_url = db.Column(db.TEXT)
+    __table_args__ = {'sqlite_autoincrement': True}
+    id = db.Column(db.Integer, primary_key=True)
+    score = db.Column(db.Float, nullable=False)
+    img_url = db.Column(db.TEXT, nullable=False)
     
 db.create_all()
+
+@app.route('/')
+def index():
+    return redirect('/movies')
+
 
 @app.route('/movies')
 def movies():

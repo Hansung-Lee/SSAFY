@@ -26,6 +26,8 @@
 		- 영화 정보 데이터를 저장하는 데이터베이스
 		- 평점을 별로 나타내기 위해 평점별 별 이미지 테이블도 추가함
 	
+    - templates/base.html : 기본 html 템플릿, Bootstrap css 로드와 Navbar를 포함
+
     - templates/index.html
     	- 영화 목록 페이지
     	- 현재 데이터베이스에 저장되어 있는 영화의 포스터이미지, 제목, 평점을 보여줌
