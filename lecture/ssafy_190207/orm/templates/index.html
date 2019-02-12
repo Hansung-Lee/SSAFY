@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/create">
+        제목 : <input type="text" name="title"/>
+        내용 : <input type="text" name="content"/>
+        <input type="submit" value="Submit"/>
+    </form>
+    {% for a in articles %}
+        <p> {{a}} 
+        <a href="/delete/{{a.id}}">[삭제]</a>
+        <a href="/edit/{{a.id}}">[수정]</a>
+        </p>
+    {% endfor %}
+</body>
+</html>

@@ -18,7 +18,7 @@ pip install --upgrade pip
 pip install django  
 
 ## 장고 프로젝트 생성
-django-admin startproject intro
+django-admin startproject intro .
 
 ## 장고 프로젝트 설정
 settings.py에서 ALLOWED_HOSTS 수정  
