@@ -18,7 +18,7 @@ pip install --upgrade pip
 pip install django  
 
 ## 장고 프로젝트 생성
-django-admin startproject intro .  
+django-admin startproject intro
 
 ## 장고 프로젝트 설정
 settings.py에서 ALLOWED_HOSTS 수정  
@@ -41,7 +41,7 @@ def index(request):
     return render(request, 'pages/index.html')
 ```
 templates 폴더 만들어서 html 파일만들기  
-  
+
 urls.py 에서 urlpatterns에  
 ``` python
 import pages import views
