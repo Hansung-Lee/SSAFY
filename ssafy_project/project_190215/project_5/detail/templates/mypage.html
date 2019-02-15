@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-3">
+                <div class="card mb-3 position-fixed">
+                    <img src="{% static 'img/user_profile.jpg' %}" class="card-img-top rounded-circle" alt="User Profile">
+                    <div class="card-body">
+                        <h5 class="card-title">박보검</h5>
+                        <p class="card-text"><small class="text-muted">hansomg@ssafy.com</small></p>
+                        <p class="card-text">안녕하세요. 박보검입니다.</p>
+                        <a href="#" class="card-link">Logout</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-7">
+                <div class="card mb-3">
+                    <img src="{% static 'img/post1.png' %}" class="card-img-top" alt="Post image">
+                    <div class="card-body">
+                        <p class="card-text">
+                            박보검으로부터 도착한 짜릿한 영상 편지 💌 <br>
+                            심쿵 유발 직진남 박보검의 발렌타인데이 선물! <br>
+                            "오늘부터 저랑 1일 어때요..?" <br>
+                            코카-콜라로 짜릿하게 마음을 전해봐~ <br>
+                        </p>
+                        <a href="https://twitter.com/i/status/1095955973284466688" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <img src="{% static 'img/post2.jpg' %}" class="card-img-top" alt="Post image">
+                    <div class="card-body">
+                        <p class="card-text">2019년, 목표를 향해 돌진하는 한 해가 되시길. 새해 복 한가득 받으세요🦅 </p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <img src="{% static 'img/post3.png' %}" class="card-img-top" alt="Post image">
+                    <div class="card-body">
+                        <p class="card-text">
+                            봄을 불러오는 짜릿한 미소 😍 <br>
+                            사심 듬뿍 담아 선별한 박보검 비하인드컷 대.방.출! <br>
+                            심장 떨린다면, 지금 바로 좋아요! <br>
+                        </p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <img src="{% static 'img/post4.jpg' %}" class="card-img-top" alt="Post image">
+                    <div class="card-body">
+                        <p class="card-text">“May your everyday be a good day!” </p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+{% endblock %}

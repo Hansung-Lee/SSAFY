@@ -1,0 +1,26 @@
+header {
+    background-image: url('../img/banner.png');
+    height: 350px;
+    width: 100%;
+}
+
+footer {
+    height: 50px;
+    width: 100%;
+    background-color: rgb(219, 219, 219);
+}
+
+body {
+    font-family: 'Jua', sans-serif;
+}
+
+.font_jua {
+    font-family: 'Jua', sans-serif;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}

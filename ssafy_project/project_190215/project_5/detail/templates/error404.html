@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+    <header id="header" class="position-relative overflow-hidden align-items-center">
+        <div class="mx-auto text-center" style="width:50%; margin-top: 160px;">
+            <h1 class="font_jua">{{not_found}}/ 는 없는 경로입니다.</h1>
+        </div>
+    </header>
+    
+    <footer class="footer mt-auto px-5 text-dark">
+        <div>
+            <p class="float-right pt-2">
+                <a href="#header"><img src="{% static 'img/top.png' %}" width="35px" height="35px" alt="Top"></a>
+            </p>
+            <p class="pt-3">
+                이한성
+            </p>
+        </div>
+    </footer>
+{% endblock %}
