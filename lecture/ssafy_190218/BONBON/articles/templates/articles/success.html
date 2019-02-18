@@ -1,0 +1,12 @@
+{% extends 'articles/base.html' %}
+
+{% block title %}
+<title>글 작성 완료</title>
+{% endblock %}
+
+{% block body %}
+<h3 class="m-3"> 글 작성이 완료되었습니다. </h3>
+<form action="{% url 'articles:index' %}" class="m-3">
+    <button type="submit" class="btn btn-primary">글 목록</button>
+</form>
+{% endblock %}

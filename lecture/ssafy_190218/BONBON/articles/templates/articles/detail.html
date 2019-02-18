@@ -1,0 +1,17 @@
+{% extends 'articles/base.html' %}
+
+{% block title %}
+<title>글 정보 조회</title>
+{% endblock %}
+
+{% block body %}
+<div class="jumbotron">
+    <h1 class="display-4"> {{article.title}} </h1>
+    <p class="lead"> | {{article.author}} |</p>
+    <hr class="my-4">
+    <p>{{article.content}}</p>
+    <a class="btn btn-primary" href="{% url 'articles:index' %}" role="button">목록</a>
+    <a class="btn btn-primary" href="{% url 'articles:edit' article_id=article.id %}" role="button">수정</a>
+    <a class="btn btn-primary" href="{% url 'articles:delete' article_id=article.id %}" role="button">삭제</a>
+</div>
+{% endblock %}
