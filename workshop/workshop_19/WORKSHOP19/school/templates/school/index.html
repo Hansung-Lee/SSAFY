@@ -1,0 +1,32 @@
+<h1>우리반 학생들</h1>
+
+<form action="/create">
+    이름: <input type="text" name="name"/>
+    이메일: <input type="text" name="email"/>
+    생일: <input type="date" name="birthday"/>
+    나이: <input type="number" name="age"/>
+    <input type="submit" value="Submit"/>
+</form>
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col">이름</th>
+      <th scope="col">이메일</th>
+      <th scope="col">생일</th>
+      <th scope="col">나이</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for student in students %}
+        <tr>
+            <th scope="row">{{student.name}}</th>
+            <td>{{student.email}}</td>
+            <td>{{student.birthday}}</td>
+            <td>{{student.age}}</td>
+            <td><a href="/edit/{{student.id}}"> 수정 </a></td>
+            <td><a href="/delete/{{student.id}}"> 삭제 </a></td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
