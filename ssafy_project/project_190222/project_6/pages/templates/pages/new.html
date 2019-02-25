@@ -1,0 +1,59 @@
+{% extends 'pages/base.html' %}
+
+{% block title %}
+<title>영화 정보 생성</title>
+{% endblock %}
+
+{% block body %}
+<form class="m-3" action="{% url 'pages:create' %}">
+    <div class="form-group row">
+        <div class="input-group mx-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">영화명</span>
+            </div>
+            <input type="text" name="title" aria-label="title" class="form-control" placeholder="영화명을 입력하세요." required/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="input-group mx-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">누적 관객수</span>
+            </div>
+            <input type="number" name="audience" aria-label="audience" class="form-control" placeholder="누적 관객수를 입력하세요." required/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="input-group mx-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">장르</span>
+            </div>
+            <input type="text" name="genre" aria-label="genre" class="form-control" placeholder="장르를 입력하세요." required/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="input-group mx-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">평점</span>
+            </div>
+            <input type="number" min="0" max="10" name="score" aria-label="score" class="form-control" placeholder="평점을 입력하세요. (0~10점 사이)" required/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="input-group mx-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">포스터 이미지 URL</span>
+            </div>
+            <input type="text" name="poster_url" aria-label="poster_url" class="form-control" placeholder="포스터 이미지 URL을 입력하세요." required/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="input-group mx-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">영화소개</span>
+            </div>
+            <textarea name="description" aria-label="description" class="form-control" placeholder="영화소개를 입력하세요." required/></textarea>
+        </div>
+    </div>
+  <button type="submit" class="btn btn-primary">등록</button>
+</form>
+{% endblock %}

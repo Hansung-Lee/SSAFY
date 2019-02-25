@@ -1,0 +1,17 @@
+{% extends 'pages/base.html' %}
+
+{% block title %}
+<title>영화 정보 조회</title>
+{% endblock %}
+
+{% block body %}
+<div class="jumbotron">
+    <h1 class="display-4"><img src="{{movie.poster_url}}" alt="Movie Poster" width="250" height="300"> {{movie.title}}</h1>
+    <p class="lead"> {{movie.genre}} | 누적관객: {{movie.audience}}명 | 평점: {{movie.score}}</p>
+    <hr class="my-4">
+    <p>{{movie.description}}</p>
+    <a class="btn btn-primary" href="{% url 'pages:index' %}" role="button">목록</a>
+    <a class="btn btn-primary" href="{% url 'pages:edit' movie_id=movie.id %}" role="button">수정</a>
+    <a class="btn btn-primary" href="{% url 'pages:delete' movie_id=movie.id %}" role="button">삭제</a>
+</div>
+{% endblock %}

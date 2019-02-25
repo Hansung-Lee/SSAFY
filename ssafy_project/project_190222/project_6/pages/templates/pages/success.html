@@ -1,0 +1,12 @@
+{% extends 'pages/base.html' %}
+
+{% block title %}
+<title>영화 정보 생성 완료</title>
+{% endblock %}
+
+{% block body %}
+<h3 class="m-3"> 영화 정보 생성이 완료되었습니다. </h3>
+<form action="{% url 'pages:index' %}" class="m-3">
+    <button type="submit" class="btn btn-primary">영화 목록</button>
+</form>
+{% endblock %}
