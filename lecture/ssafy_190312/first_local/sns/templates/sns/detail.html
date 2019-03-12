@@ -1,0 +1,55 @@
+{% extends 'sns/base.html' %}
+
+{% block is_detail %}
+    active
+{% endblock %}
+
+{% block body %}
+    <div class="row mt-3">
+        <div class="col-12 col-md-6">
+            <div class="card">
+                {% if posting.image %}
+                    <img src="{{ posting.image.url }}"
+                         class="card-img-top image-fluid"
+                         alt="{{ posting.image }}">
+                {% else %}
+                    <img src="http://picsum.photos/g/320/500/?random"
+                         class="card-img-top image-fluid"
+                         alt="random_image">
+                {% endif %}
+
+                <div class="card-body">
+                    <i class="{{ posting.icon }} fa-3x"></i>
+                    <hr>
+                    <p class="card-text">
+                        {{ posting.content }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="card mb-2">
+                <div class="card-body">
+                    <form action="{% url 'sns:create_comment' posting.id %}" method="POST">
+                        {% csrf_token %}
+                        <label for="comment">Leave comment</label>
+                        <input type="text" name="comment" id="comment" class="form-control" autofocus>
+                    </form>
+                </div>
+            </div>
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    {% if comments %}
+                        {% for comment in comments %}
+                            <li class="list-group-item mb-1">
+                                {{ comment.content }}
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="list-group-item mb-1">No comment yet...</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

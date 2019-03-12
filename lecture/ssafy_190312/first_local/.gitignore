@@ -1,0 +1,11 @@
+# 가상환경 파일/디렉토리
+venv/
+
+# Python auto generated cache
+__pycache__/
+
+# Jetbrain auto generated cache
+.idea/
+
+# Default django DB
+*.sqlite3
