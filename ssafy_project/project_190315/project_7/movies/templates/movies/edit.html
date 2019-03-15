@@ -1,0 +1,43 @@
+{% extends 'movies/base.html' %}
+
+{% block title %}
+<title>영화 정보 수정</title>
+{% endblock %}
+
+{% block body %}
+<form class="m-3" action="{% url 'movies:update' movie_id=movie.id %}">
+    <div class="form-group row">
+        <div class="input-group mx-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">영화명</span>
+            </div>
+            <input type="text" name="title" aria-label="title" class="form-control" placeholder="영화명을 입력하세요." value="{{movie.title}}" required/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="input-group mx-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">누적 관객수</span>
+            </div>
+            <input type="number" name="audience" aria-label="audience" class="form-control" placeholder="누적 관객수를 입력하세요." value="{{movie.audience}}" required/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="input-group mx-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">포스터 이미지 URL</span>
+            </div>
+            <input type="text" name="poster_url" aria-label="poster_url" class="form-control" placeholder="포스터 이미지 URL을 입력하세요." value="{{movie.poster_url}}" required/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="input-group mx-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">영화소개</span>
+            </div>
+            <textarea name="description" aria-label="description" class="form-control" placeholder="영화소개를 입력하세요." required/>{{movie.description}}</textarea>
+        </div>
+    </div>
+  <button type="submit" class="btn btn-primary">수정</button>
+</form>
+{% endblock %}
