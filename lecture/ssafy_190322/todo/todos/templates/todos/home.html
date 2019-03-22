@@ -1,0 +1,61 @@
+{% extends 'users/base.html' %}
+
+{% block content %}
+    {% if todos %}
+        <h1 class="text-center">Todo List</h1>
+        <form action="{% url 'todos:create' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" class="form-control" name="content">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary">만들기</button>
+            </div>
+        </form>
+
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">해야 할 일</th>
+                <th scope="col">체크</th>
+                <th scope="col">삭제</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for todo in todos %}
+                    {% if not todo.completed %}
+                        <tr>
+                            <td>{{ todo.content }}</td>
+                            <td><form action="{% url 'todos:check' todo.id %}"><input type="checkbox" class="form-check-input m-auto" onclick="this.form.submit();"></form></td>
+                            <td><a href="{% url 'todos:delete' todo.id %}">[삭제]</a></td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">완료한 일</th>
+                <th scope="col">체크</th>
+                <th scope="col">삭제</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for todo in todos %}
+                    {% if todo.completed %}
+                        <tr>
+                            <td><strike>{{ todo.content }}</strike></td>
+                            <td><form action="{% url 'todos:check' todo.id %}"><input type="checkbox" class="form-check-input m-auto" onclick="this.form.submit();" checked></form></td>
+                            <td><a href="{% url 'todos:delete' todo.id %}">[삭제]</a></td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h1 class="text-center">로그인이 필요합니다.</h1>
+    {% endif %}
+
+{% endblock %}

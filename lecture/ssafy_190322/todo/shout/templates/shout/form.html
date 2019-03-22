@@ -1,0 +1,14 @@
+{% extends 'users/base.html' %}
+
+{% if request.resolver_match.url_name == "create" %}
+    <h1>이 페이지는 작성페이지입니다.</h1>
+{% else %}
+    <h1>이 페이지는 수정페이지입니다.</h1>
+{% endif %}
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit">
+    </form>
+{% endblock %}
