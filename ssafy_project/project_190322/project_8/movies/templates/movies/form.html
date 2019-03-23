@@ -1,0 +1,17 @@
+{% extends 'movies/base.html' %}
+
+{% block title %}
+    {% if request.resolver_match.url_name == "new" %}
+        <title>영화 정보 작성</title>
+    {% else %}
+        <title>영화 정보 수정</title>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <form class="m-3" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-primary" type="submit">
+    </form>
+{% endblock %}

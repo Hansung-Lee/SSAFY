@@ -1,0 +1,57 @@
+{% extends 'movies/base.html' %}
+
+{% block title %}
+<title>영화 정보 조회</title>
+{% endblock %}
+
+{% block body %}
+<div class="jumbotron">
+    <h1 class="display-4"><img src="{{movie.poster_url}}" alt="Movie Poster" width="250" height="300"> {{movie.title}}</h1>
+    <p class="lead"> {{movie.genre}} | 누적관객: {{movie.audience}}명 </p>
+
+    <hr class="my-4">
+    <p>{{movie.description}}</p>
+
+    <hr class="my-4">
+    <div class="my-4">
+        <form action="{% url 'movies:create_score' movie.id %}" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-8">
+                    <label for="content">한줄 감상평</label>
+                    <input type="text" name="content" id="content" class="form-control" placeholder="한줄 감상평을 입력하세요." autofocus required/>
+                </div>
+                <div class="col-3">
+                    <label for="score">평점</label>
+                    <input type="number" min="0" max="10" name="score" id="score" class="form-control" placeholder="평점을 입력하세요. (0~10점 사이)" required/>
+                </div>
+                <div class="col-1 align-self-center">
+                    <button class="btn btn-primary" type="submit">제출</button>
+                </div>
+            </div>
+        </form>
+        {% if scores %}
+            <h5 class="m-3">관람객 평점</h5>
+            {% for score in scores %}
+                <div class="row ml-4 my-2">
+                    <p>{{ score.score }}점, {{ score.content }}</p>
+                    <form action="{% url 'movies:delete_score' movie.id score.id %}" style="display: inline" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-primary ml-3" type="submit">삭제</button>
+                    </form>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="my-4">
+        <a class="btn btn-primary" href="{% url 'movies:index' %}" role="button">목록</a>
+        <a class="btn btn-primary" href="{% url 'movies:edit' movie.id %}" role="button">수정</a>
+        <form action="{% url 'movies:delete' movie.id %}" style="display: inline" method="POST">
+            {% csrf_token %}
+            <button class="btn btn-primary" type="submit">삭제</button>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
