@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Todo App</title>
+</head>
+<body>
+    <div id="app">
+        <span v-html="header"></span>
+        <h2>{{ subheader }}</h2>
+        <h2>{{ subheader }}</h2>
+        <ul>
+            <li v-for="t in todo">
+                {{ t }}
+            </li>
+        </ul>
+        <p v-if="checked">{{ human.name }}</p>
+
+        <ol>
+            <li v-for="h in human">{{ h }}</li>
+        </ol>
+        
+        <input v-model="subheader">
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        let app = new Vue({
+            el: '#app',
+            data: {
+                header: '<h1>Todo App</h1>',
+                subheader: 'This is Todo App',
+                todo: ['동사무소 가기', '등본떼기', '제출'],
+                checked: true,
+                human: {
+                    name: "홍길동",
+                    age: 20
+                },
+                posts: fetch('/posts'),
+            }
+        })
+    </script>
+    
+</body>
+</html>
