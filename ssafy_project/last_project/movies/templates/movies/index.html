@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>영화 목록</title>
+{% endblock %}
+    
+{% block body %}
+<form action="{% url 'movies:movie_list' %}" class="m-3">
+    <button type="submit" class="btn btn-primary">새 영화 등록</button>
+</form>
+
+<table class="table table-hover m-3">
+  <thead>
+    <col width="100">
+    <col width="150">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">영화 포스터</th>
+      <th scope="col">제목</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for movie in movies %}
+        <tr>
+            <th scope="row">{{movie.movie_code}}</th>
+            <td><img src="{{movie.poster_url}}" alt="Movie Poster" width="125" height="150"></td>
+            <td><a href="{% url 'movies:detail' movie_id=movie.id %}">{{movie.movie_name_ko}}</a></td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

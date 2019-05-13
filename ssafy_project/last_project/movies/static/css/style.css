@@ -1,0 +1,22 @@
+.overlay {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    z-index: 2;
+    opacity: 0;
+    background: rgba(40, 40, 40, 0.8);
+    transition: opacity 200ms ease-in-out;
+    border-radius: 4px;
+    width: 224px;
+    height: 320px;
+}
+
+.overlay:hover {
+    opacity: 1;
+}
+
+.tit {margin:60px 10px 7px; text-align:center; font-size:18px; font-weight:bold; color:#faeb00; display:block; }
+.open_date {display:block; text-align:center; font-size:12px; color:#b4b4b4; }
+.director {position:absolute; left:10px; bottom:80px; width:200px; font-size:13px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;-o-text-overflow:ellipsis; }
+.actor {position:absolute; left:10px; bottom:60px; width:200px; font-size:13px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;-o-text-overflow:ellipsis; }
+.btn_detail {background:#eee; position:absolute; left:0; bottom:0; font-size:14px; font-weight:bold; color:#272727; padding:12px 0; text-align:center; width:224px; }
