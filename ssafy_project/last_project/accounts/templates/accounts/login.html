@@ -1,15 +1,25 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block container %}
+<title>MoM : login</title>
 
-<h1>로그인</h1>
+<div class="card" style="width: 60rem;" >
+  <img src="{% static 'accounts/login.jpg' %}" height="230" class="card-img-top" >
+    <div class="card-body">
+  <form method="post" >
+    {% csrf_token %}
+        {{ login_form.as_p }} <input type="submit" value="로그인" class="btn btn-dark" />
+      <a class="btn btn-dark" href="{% url 'accounts:signup' %}" role="button">회원가입</a>
+    </form>
 
-<form method="post">
-    {% csrf_token %}    
-    {{ login_form.as_p }}
-    <input type="submit" value="로그인"/>
-</form>
 
-<a href="{% url 'accounts:signup' %}">회원가입</a>
+{#    <p class="card-text">임시 비밀번호로 로그인이 안됩니다.</p>#}
+  </div>
+</div>
 
 {% endblock %}
+
+
+
+

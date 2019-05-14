@@ -15,20 +15,45 @@
     {% endblock %}
 </head>
 <body>
-    <nav>
-    <a class="navbar-brand" href="/movies"><img src="https://user-images.githubusercontent.com/30791915/52543723-22746d80-2def-11e9-8263-876b3c47cf8f.png" alt="logo" width="30" height="30"> 영화 추천 사이트</a>
-        {% if user.is_authenticated %}
-            <span>{{ user.username }}</span>
-            <a href="{% url 'accounts:logout' %}">로그아웃</a>
-        {% else %}
-            <a href="{% url 'accounts:login' %}">로그인</a>
-            <a href="{% url 'accounts:signup' %}">회원가입</a>
-        {% endif %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand " href="/movie/"><img src="https://www.emmys.com/sites/default/files/styles/show_detail/public/shows/mom-2016-600x600.jpg?itok=mIXceYjI" alt="logo" width="30" height="30"> LIFE THEATER </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <span class="nav-link">{{ user.username }}</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:logout' %}">LOGOUT</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:login' %}" >LOGIN</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:signup' %}">SIGNUP</a>
+                    </li>
+                {% endif %}
+            </ul>
+{#                <span class="navbar-text" >#}
+{#                    로그인 해주세요!#}
+{#                </span>#}
+        </div>
     </nav>
     {% block body %}
     {% endblock %}
+    <hr>
     <div class="container">
-        {% block container %}{% endblock %}
+
+        {% block container %}
+
+        {% endblock %}
     </div>
 </body>
+<hr>
+  <p > </p>
 </html>

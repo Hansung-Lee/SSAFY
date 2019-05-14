@@ -1,13 +1,20 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block container %}
 
-<h1>회원가입</h1>
+<title>MoM : Signup</title>
 
-<form method="post">
+<div class="card" style="width: 60rem;">
+  <img src="{% static 'accounts/signup.png' %}"  height="230" class="card-img-top" >
+  <div class="card-body">
+
+  <form method="post" >
     {% csrf_token %}
-    {{ signup_form.as_p }}
-    <input type="submit" value="회원가입"/>
-</form>
+        {{ signup_form.as_p }} <input type="submit" value="회원가입" class="btn btn-dark" />
+    </form>
+
+{#    <p class="card-text">임시 비밀번호로 로그인이 안됩니다.</p>#}
+  </div>
+</div>
 
 {% endblock %}

@@ -1,15 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Movie, Score
 from .forms import ScoreForm
-from .serializer import MovieSerializer
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
 from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 
 from bs4 import BeautifulSoup as bs
 import datetime
 import requests
+import json
 
 
 # Create your views here.
@@ -99,8 +97,6 @@ def movie_db2(request):
     document = bs(response, 'html.parser')
     temp_rank = document.select('.list_ranking .title a')
 
-    # res = requests.get(url_rank, headers=headers_naver)
-    # res_data = res.json()
     temp_li = str(temp_rank).split('href="')[1:]
     for i in range(len(temp_li)):
         temp_li[i] = temp_li[i].split('" title')[0]
@@ -128,26 +124,85 @@ def movie_list(request):
     return render(request, 'movies/list.html', {'movie1': movies[:4], 'movie2': movies[4:8], 'movie3': movies[8:]})
 
 
-@api_view(['GET'])
-def movie_list2(request):
-    # 모든 음악들을 가져온다.
-    movies = Movie.objects.all()
-    # MusicSerializer(무엇을 시리얼라이즈할지, 여러개인지 한개인지)
-    serializer = MovieSerializer(movies, many=True)
-
-    # return render(request, 'list.html', {'musics': musics})
-    return Response(data=serializer.data)
-
-
 def detail(request, movie_id):
     movie = Movie.objects.get(pk=movie_id)
-    return render(request, 'movies/detail.html', {'movie': movie})
+    if request.GET.get("theaterCode"):
+        theatercode = request.GET.get("theaterCode")
+    else:
+        theatercode = '0056'
+
+    url_movie = 'http://www.cgv.co.kr/theaters/'+f'?theaterCode={theatercode}'
+    response = requests.get(url_movie).text
+    document = bs(response, 'html.parser')
+
+    temp_address = document.select('.wrap-theater .sect-theater .box-contents .title')
+    address = str(temp_address).split('<br/>')[1].split('<a')[0]
+
+    headers_naver_map = {
+        'X-NCP-APIGW-API-KEY-ID': 'x8w0y9djtb',
+        'X-NCP-APIGW-API-KEY': 'yD4XS0AedH9ShyGuFxMuI5UxqaKNzfrHapjviGkg'
+    }
+
+    url_geocode = f'https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query={address}'
+
+    res = requests.get(url_geocode, headers=headers_naver_map)
+    res_data = res.json()
+
+    if not res_data.get('addresses'):
+        url_movie = 'http://www.cgv.co.kr/theaters/' + f'?theaterCode={theatercode}'
+        response = requests.get(url_movie).text
+        document = bs(response, 'html.parser')
+
+        temp_address = document.select('.wrap-theater .sect-theater .box-contents .title')
+        address = '서울' + str(temp_address).split('서울')[1].split('<br/>')[0]
+
+        url_geocode = f'https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query={address}'
+
+        res = requests.get(url_geocode, headers=headers_naver_map)
+        res_data = res.json()
+
+    theaters = {
+        '0056': 'CGV강남', '0001': 'CGV강변', '0229': 'CGV건대입구', '0010': 'CGV구로', '0063': 'CGV대학로',
+        '0252': 'CGV동대문', '0230': 'CGV등촌', '0009': 'CGV명동', '0105': 'CGV명동역 씨네라이브러', '0011': 'CGV목동',
+        '0057': 'CGV미아', '0030': 'CGV불광', '0046': 'CGV상봉', '0083': 'CGV성신여대입구', '0088': 'CGV송파',
+        '0276': 'CGV수유', '0150': 'CGV신촌아트레온', '0040': 'CGV압구정', '0112': 'CGV여의도', '0059': 'CGV영등포',
+        '0074': 'CGV왕십리', '0013': 'CGV용산아이파크몰', '0131': 'CGV중계', '0199': 'CGV천호', '0107': 'CGV청담씨네시티',
+        '0223': 'CGV피카디리1958', '0164': 'CGV하계', '0191': 'CGV홍대', '0040': 'CINE de CHEF 압구정', '0013': 'CINE de CHEF 용산아이파크몰',
+    }
+
+    headers_naver = {
+        'X-Naver-Client-Id': 'bS2KxFME66tpq5UJPclw',
+        'X-Naver-Client-Secret': 'ZUOJVkLobP'
+    }
+
+    url_search = f'https://openapi.naver.com/v1/search/local.json?query={address} 맛집'
+    res = requests.get(url_search, headers=headers_naver)
+    restaurants = res.json().get('items')
+
+    for r in restaurants:
+        address = r.get('address')
+        url_geocode = f'https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query={address}'
+
+        res = requests.get(url_geocode, headers=headers_naver_map)
+        res_data1 = res.json()
+        r['x_axis'] = res_data1.get('addresses')[0].get('x')
+        r['y_axis'] = res_data1.get('addresses')[0].get('y')
+
+    context = {
+        'movie': movie,
+        'x_axis': res_data.get('addresses')[0].get('x'),
+        'y_axis': res_data.get('addresses')[0].get('y'),
+        'theater_code': theaters,
+        'theater': theaters.get(str(theatercode)),
+        'restaurants': restaurants,
+    }
+
+    return render(request, 'movies/detail.html', context)
 
 
 @login_required
 def create_score(request, movie_id):
     if request.method == 'POST':
-        movie = get_object_or_404(Movie, id=movie_id)
         score = ScoreForm(request.POST)
         if score.is_valid():
             form = score.save(commit=False)
@@ -158,6 +213,7 @@ def create_score(request, movie_id):
         return redirect('movies:detail', movie_id=movie_id)
     return redirect('movies:detail')
 
+
 @login_required
 def delete_score(request, movie_id, score_id):
     if request.method == 'POST':
@@ -165,6 +221,7 @@ def delete_score(request, movie_id, score_id):
         score.delete()
         return redirect('movies:detail', movie_id=movie_id)
     return redirect('movies:movie_list')
+
 
 @login_required
 def update_score(request, score_id, movie_id):
@@ -183,4 +240,5 @@ def update_score(request, score_id, movie_id):
             return redirect('movies:detail', movie_id=movie_id)
     else:
         form = ScoreForm(instance=score)
-        return render(request, 'movies/update.html', {'form' : form})
+        return render(request, 'movies/update.html', {'form': form, 'movie':movie})
+

@@ -1,12 +1,32 @@
 {% extends 'base.html' %}
 
+{% block title %}
+<title>MoM : 평점 수정</title>
+{% endblock %}
+
+{% block body %}
+<div class="jumbotron">
+    <h1 class="display-4"><img src="{{movie.poster_url}}" alt="Movie Poster" width="250" height="300"> {{movie.movie_name_ko}}</h1>
+    <p class="lead"> {{movie.genre}} | {{movie.showTm}}분| {{movie.openDt}} 개봉 | {{movie.watch_grade_nm}} | 누적관객: {{movie.audience}}명</p>
+    <p class="lead"> 감독: {{movie.directors}}</p>
+    <p class="lead"> 출연: {{movie.actors}}</p>
+    <hr class="my-4">
+    <p>{{movie.description}}</p>
+    <a class="btn btn-dark" href="{% url 'movies:movie_list' %}" role="button">영화 목록으로</a>
+</div>
+{% endblock %}
+
+
 {% block container %}
 <h1>평점 수정하기</h1>
 
-<form method = "POST">
-  {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="확인"/>
-</form>
-
+<div class="card mb-3">
+    <div class="card-body">
+        <form method = "POST">
+          {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="수정하기" class="btn btn-dark"/>
+        </form>
+    </div>
+</div>
 {% endblock %}
