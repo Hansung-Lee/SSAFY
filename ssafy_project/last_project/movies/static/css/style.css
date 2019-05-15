@@ -1,3 +1,7 @@
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
 .overlay {
     display: flex;
     justify-content: center;
@@ -20,3 +24,4 @@
 .director {position:absolute; left:10px; bottom:80px; width:200px; font-size:13px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;-o-text-overflow:ellipsis; }
 .actor {position:absolute; left:10px; bottom:60px; width:200px; font-size:13px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;-o-text-overflow:ellipsis; }
 .btn_detail {background:#eee; position:absolute; left:0; bottom:0; font-size:14px; font-weight:bold; color:#272727; padding:12px 0; text-align:center; width:224px; }
+

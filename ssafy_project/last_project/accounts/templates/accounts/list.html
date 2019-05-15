@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<title>Follow list</title>
+<h3>Follow List</h3>
+  {% for user in users %}
+
+    <div class="list-group">
+      <a href="{% url 'accounts:detail' user.id %}" class="list-group-item list-group-item-action">
+          {{ user.username }} | 게시물 {{ profile.score_set.all.count }} | 팔로워 {{ profile.followers.count }} | 팔로우 {{ profile.followings.count }}
+      </a>
+    </div>
+{% endfor %}
+
+{% endblock %}

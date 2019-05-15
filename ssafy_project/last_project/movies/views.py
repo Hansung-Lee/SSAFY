@@ -7,7 +7,6 @@ from django.contrib.auth.decorators import login_required
 from bs4 import BeautifulSoup as bs
 import datetime
 import requests
-import json
 
 
 # Create your views here.
@@ -121,7 +120,7 @@ def movie_db2(request):
 
 def movie_list(request):
     movies = Movie.objects.all()[:10]
-    return render(request, 'movies/list.html', {'movie1': movies[:4], 'movie2': movies[4:8], 'movie3': movies[8:]})
+    return render(request, 'movies/list.html', {'movies': movies})
 
 
 def detail(request, movie_id):
@@ -168,6 +167,7 @@ def detail(request, movie_id):
         '0276': 'CGV수유', '0150': 'CGV신촌아트레온', '0040': 'CGV압구정', '0112': 'CGV여의도', '0059': 'CGV영등포',
         '0074': 'CGV왕십리', '0013': 'CGV용산아이파크몰', '0131': 'CGV중계', '0199': 'CGV천호', '0107': 'CGV청담씨네시티',
         '0223': 'CGV피카디리1958', '0164': 'CGV하계', '0191': 'CGV홍대', '0040': 'CINE de CHEF 압구정', '0013': 'CINE de CHEF 용산아이파크몰',
+        '0012': 'CGV수원', '0253': 'CGV해운대',
     }
 
     headers_naver = {
@@ -203,6 +203,7 @@ def detail(request, movie_id):
 @login_required
 def create_score(request, movie_id):
     if request.method == 'POST':
+        movie = get_object_or_404(Movie, id=movie_id)
         score = ScoreForm(request.POST)
         if score.is_valid():
             form = score.save(commit=False)
@@ -240,5 +241,4 @@ def update_score(request, score_id, movie_id):
             return redirect('movies:detail', movie_id=movie_id)
     else:
         form = ScoreForm(instance=score)
-        return render(request, 'movies/update.html', {'form': form, 'movie':movie})
-
+        return render(request, 'movies/update.html', {'form' : form,'movie':movie})

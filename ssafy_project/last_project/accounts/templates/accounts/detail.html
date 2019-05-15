@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<title>Detail</title>
+
+<h1 style="display:inline">Detail Page({{ profile.username }})</h1>
+
+{# 팔로우 #}
+{% if user != profile %}
+    <!--3.2.4-->
+    {% if user in profile.followers.all %}
+            <form action="{% url 'accounts:follow' profile.id %}" style="display:inline">
+                <button type="submit" class="btn btn-dark">언팔로우</button>
+            </form>
+    {% else %}
+            <form action="{% url 'accounts:follow' profile.id %}" style="display:inline">
+                <button type="submit" class="btn btn-primary">팔로우</button>
+            </form>
+    {% endif %}
+{% endif %}
+
+
+
+<h5>팔로우 : <a href = "{% url 'accounts:followings' profile.id %}" >{{ profile.followings.count }}</a></h5>
+<h5 style="display:inline" >팔로워 : <a href = "{% url 'accounts:followers' profile.id %}" >{{ profile.followers.count }}</a></h5>
+
+
+<h3 >작성한 평점 목록 {{ profile.score_set.all.count }}</h3>
+<div class="list-group">
+{% for score in profile.score_set.all %}
+
+    <a href="" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{ score.movie.movie_name_ko }}</h5>
+          <small>{{ score.created_at }}</small>
+        </div>
+        <h5 class="mb-1">  평가 : {{ score.content}}</h5>
+        <h5 class="mb-1">  ★★★★★ : {{score.value}}</h5>
+        <small>  작성자 : {{ score.user.username }}</small>
+
+      </a>
+
+
+{% endfor %}
+
+
+
+
+{#<!--4.5 영화 기본 추천-->#}
+{#{% if user == profile %}#}
+{##}
+{#<h2>팔로우 셀럽들의 추천 영화</h2>#}
+{#    {{ friendmovie.movie.movie_name_ko }}#}
+{#<h2>전체 유저 추천 영화</h2>#}
+{#    {{ bestmovie.movie.movie_name_ko }}#}
+{#{% endif %}#}
+
+
+
+<!--3.2.3팔로우와 팔로잉하는 사람의 수를 출력-->
+<!--3.2.4 팔로우 사람수 누르면 목록으로-->
+
+{% endblock %}

@@ -7,17 +7,20 @@
 
 {% block body %}
 <div class="jumbotron">
-    <h1 class="display-4"><img src="{{movie.poster_url}}" alt="Movie Poster" width="250" height="300"> {{movie.movie_name_ko}}</h1>
-    <p class="lead"> {{movie.genre}} | {{movie.showTm}}분| {{movie.openDt}} 개봉 | {{movie.watch_grade_nm}} | 누적관객: {{movie.audience}}명</p>
-    <p class="lead"> 감독: {{movie.directors}}</p>
-    <p class="lead"> 출연: {{movie.actors}}</p>
-    <hr class="my-4">
-    <p>{{movie.description}}</p>
-    <a class="btn btn-primary" href="{% url 'movies:movie_list' %}" role="button">목록</a>
+    <div class="container">
+        <h1 class="display-4"><img src="{{movie.poster_url}}" alt="Movie Poster" width="250" height="300"> {{movie.movie_name_ko}}</h1>
+        <p class="lead"> {{movie.genre}} | {{movie.showTm}}분| {{movie.openDt}} 개봉 | {{movie.watch_grade_nm}} | 누적관객: {{movie.audience}}명</p>
+        <p class="lead"> 감독: {{movie.directors}}</p>
+        <p class="lead"> 출연: {{movie.actors}}</p>
+        <hr class="my-4">
+        <p>{{movie.description}}</p>
+        <a class="btn btn-primary" href="{% url 'movies:movie_list' %}" role="button">목록</a>
+    </div>
 </div>
 {% endblock %}
 
 {% block container %}
+
 <div>
     <table class="table">
         <thead>
@@ -34,44 +37,13 @@
         </thead>
         <tbody>
             <tr>
-                <td><a href="./?theaterCode=0056" >CGV강남</a></td>
-                <td><a href="./?theaterCode=0001" >CGV강변</a></td>
-                <td><a href="./?theaterCode=0229" >CGV건대입구</a></td>
-                <td><a href="./?theaterCode=0010" >CGV구로</a></td>
-                <td><a href="./?theaterCode=0063" >CGV대학로</a></td>
-                <td><a href="./?theaterCode=0252" >CGV동대문</a></td>
-                <td><a href="./?theaterCode=0230" >CGV등촌</a></td>
-                <td><a href="./?theaterCode=0009" >CGV명동</a></td>
-            </tr>
-            <tr>
-                <td><a href="./?theaterCode=0105" >CGV명동역 씨네라이브러리</a></td>
-                <td><a href="./?theaterCode=0011" >CGV목동</a></td>
-                <td><a href="./?theaterCode=0057" >CGV미아</a></td>
-                <td><a href="./?theaterCode=0030" >CGV불광</a></td>
-                <td><a href="./?theaterCode=0046" >CGV상봉</a></td>
-                <td><a href="./?theaterCode=0083" >CGV성신여대입구</a></td>
-                <td><a href="./?theaterCode=0088" >CGV송파</a></td>
-                <td><a href="./?theaterCode=0276" >CGV수유</a></td>
-            </tr>
-            <tr>
-                <td><a href="./?theaterCode=0150" >CGV신촌아트레온</a></td>
-                <td><a href="./?theaterCode=0040" >CGV압구정</a></td>
-                <td><a href="./?theaterCode=0112" >CGV여의도</a></td>
-                <td><a href="./?theaterCode=0059" >CGV영등포</a></td>
-                <td><a href="./?theaterCode=0074" >CGV왕십리</a></td>
-                <td><a href="./?theaterCode=0013" >CGV용산아이파크몰</a></td>
-                <td><a href="./?theaterCode=0131" >CGV중계</a></td>
-                <td><a href="./?theaterCode=0199" >CGV천호</a></td>
-            </tr>
-            <tr>
-                <td><a href="./?theaterCode=0107" >CGV청담씨네시티</a></td>
-                <td><a href="./?theaterCode=0223" >CGV피카디리1958</a></td>
-                <td><a href="./?theaterCode=0164" >CGV하계</a></td>
-                <td><a href="./?theaterCode=0191" >CGV홍대</a></td>
-                <td><a href="./?theaterCode=0040" >CINE de CHEF 압구정</a></td>
-                <td><a href="./?theaterCode=0013" >CINE de CHEF 용산아이파크몰</a></td>
-                <td></td>
-                <td></td>
+                {% for key, value in theater_code.items %}
+                    <td><a href="./?theaterCode={{ key }}" >{{ value }}</a></td>
+                    {% if forloop.counter == 6 or forloop.counter == 12 or forloop.counter == 18 or forloop.counter == 24 or forloop.counter == 30 %}
+                        </tr>
+                        <tr>
+                    {% endif %}
+                {% endfor %}
             </tr>
         </tbody>
     </table>
@@ -79,7 +51,7 @@
 
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=x8w0y9djtb&callback=initMap"></script>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=x8w0y9djtb&submodules=geocoder"></script>
-<div id="map" style="width:100%;height:400px;"></div>
+<div class="mb-5" id="map" style="width:100%;height:400px;"></div>
 
 <script type="text/javascript">
     var map = new naver.maps.Map('map', {
@@ -93,23 +65,14 @@
         zoom: 11
     });
 
-    new naver.maps.Marker({
-        title: '{{ theater }}',
-        position: new naver.maps.LatLng({{ y_axis }},{{ x_axis }}),
-        map: map,
-        icon: {
-            url: '{% static 'img/cgv_logo.png' %}',
-            size: new naver.maps.Size(50, 20)
-        }
-    });
-
     var restaurants = {{ restaurants | safe }}
 
     var markers = []
     var links = []
 
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < restaurants.length; i++) {
         var rt = restaurants[i]
+
         if (rt['category'].includes('중식')) {
             markers.push(new naver.maps.Marker({
                 title: rt['title'] + "\n" + rt['category'],
@@ -121,6 +84,28 @@
                 }
             }));
         }
+        else if (rt['category'].includes('인도')) {
+            markers.push(new naver.maps.Marker({
+                title: rt['title'] + "\n" + rt['category'],
+                position: new naver.maps.LatLng(rt['y_axis'], rt['x_axis']),
+                map: map,
+                icon: {
+                    url: '{% static 'img/indian.png' %}',
+                    size: new naver.maps.Size(50, 41)
+                }
+            }));
+        }
+        else if (rt['category'].includes('햄버거')) {
+            markers.push(new naver.maps.Marker({
+                title: rt['title'] + "\n" + rt['category'],
+                position: new naver.maps.LatLng(rt['y_axis'], rt['x_axis']),
+                map: map,
+                icon: {
+                    url: '{% static 'img/burger.png' %}',
+                    size: new naver.maps.Size(40, 37)
+                }
+            }));
+        }
         else if (rt['category'].includes('양식') || rt['category'].includes('스테이크') || rt['category'].includes('스페인')) {
             markers.push(new naver.maps.Marker({
                 title: rt['title'] + "\n" + rt['category'],
@@ -128,7 +113,7 @@
                 map: map,
                 icon: {
                     url: '{% static 'img/western.png' %}',
-                    size: new naver.maps.Size(50, 38)
+                    size: new naver.maps.Size(50, 39)
                 }
             }));
         }
@@ -139,7 +124,18 @@
                 map: map,
                 icon: {
                     url: '{% static 'img/japanese.png' %}',
-                    size: new naver.maps.Size(50, 33)
+                    size: new naver.maps.Size(50, 39)
+                }
+            }));
+        }
+        else if (rt['category'].includes('국수')) {
+            markers.push(new naver.maps.Marker({
+                title: rt['title'] + "\n" + rt['category'],
+                position: new naver.maps.LatLng(rt['y_axis'], rt['x_axis']),
+                map: map,
+                icon: {
+                    url: '{% static 'img/noodle.png' %}',
+                    size: new naver.maps.Size(50, 36)
                 }
             }));
         }
@@ -172,7 +168,40 @@
                 map: map,
                 icon: {
                     url: '{% static 'img/italian.png' %}',
-                    size: new naver.maps.Size(50, 30)
+                    size: new naver.maps.Size(50, 42)
+                }
+            }));
+        }
+        else if (rt['category'].includes('술') || rt['category'].includes('바')) {
+            markers.push(new naver.maps.Marker({
+                title: rt['title'] + "\n" + rt['category'],
+                position: new naver.maps.LatLng(rt['y_axis'], rt['x_axis']),
+                map: map,
+                icon: {
+                    url: '{% static 'img/bar.png' %}',
+                    size: new naver.maps.Size(50, 54)
+                }
+            }));
+        }
+        else if (rt['category'].includes('고기')) {
+            markers.push(new naver.maps.Marker({
+                title: rt['title'] + "\n" + rt['category'],
+                position: new naver.maps.LatLng(rt['y_axis'], rt['x_axis']),
+                map: map,
+                icon: {
+                    url: '{% static 'img/pork.png' %}',
+                    size: new naver.maps.Size(50, 38)
+                }
+            }));
+        }
+        else if (rt['category'].includes('한식') || rt['category'].includes('뷔페')) {
+            markers.push(new naver.maps.Marker({
+                title: rt['title'] + "\n" + rt['category'],
+                position: new naver.maps.LatLng(rt['y_axis'], rt['x_axis']),
+                map: map,
+                icon: {
+                    url: '{% static 'img/korean.png' %}',
+                    size: new naver.maps.Size(40, 42)
                 }
             }));
         }
@@ -197,8 +226,19 @@
         }
     }
 
-</script>
+    var marker = new naver.maps.Marker({
+        title: '{{ theater }}',
+        position: new naver.maps.LatLng({{ y_axis }},{{ x_axis }}),
+        map: map,
+        icon: {
+            url: '{% static 'img/cgv_logo.png' %}',
+            size: new naver.maps.Size(50, 20)
+        }
+    });
 
+    console.log(marker)
+
+</script>
 
 <h2>영화 평가 목록</h2>
 
@@ -234,7 +274,7 @@
 
 <div class="list-group">
     {% for score in movie.score_set.all %}
-      <a href="#" class="list-group-item list-group-item-action">
+      <a href="{% url 'accounts:detail' score.user.id %}" class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">평가 : {{ score.content}}</h5>
           <small>{{ score.created_at }}</small>
@@ -242,23 +282,21 @@
         <h5 class="mb-1">  ★★★★★ : {{score.value}}</h5>
         <small>  작성자 : {{ score.user.username }}</small>
 
-  <div>
-      {% if user == score.user %}
-        <hr>
-        <form method="POST" action="{% url 'movies:delete' movie.id score.id %}" style="display:inline">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-dark">삭제</button>
-        </form>
+          <div>
+              {% if user == score.user %}
+                <hr>
+                <form method="POST" action="{% url 'movies:delete' movie.id score.id %}" style="display:inline">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-dark">삭제</button>
+                </form>
 
-        <form method="GET" action="{% url 'movies:update' movie.id score.id %}" style="display:inline">
-          <button type="submit" class="btn btn-dark">수정</button>
-        </form>
-      {% endif %}
-  </div>
+                <form method="GET" action="{% url 'movies:update' movie.id score.id %}" style="display:inline">
+                  <button type="submit" class="btn btn-dark">수정</button>
+                </form>
+              {% endif %}
+          </div>
       </a>
-
-
-
 {% endfor %}
 </div>
+
 {% endblock %}

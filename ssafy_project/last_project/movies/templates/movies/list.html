@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
 <title>MoM</title>
 {% endblock %}
     
-{% block body %}
-
-<div class="container">
+{% block container %}
     <div class="row my-5">
-        {% for movie in movie1 %}
+        {% for movie in movies %}
             <div class="col-sm-3">
                 <div class="panel panel-default">
                     <div class="panel-body">
@@ -24,56 +23,22 @@
                     </div>
                 </div>
             </div>
-        {% endfor %}
-    </div>
-    <div class="row my-5">
-        {% for movie in movie2 %}
-            <div class="col-sm-3">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <a href="{% url 'movies:detail' movie_id=movie.id %}">
-                            <div class="overlay">
-                                <span class="tit">{{movie.movie_name_ko}}</span>
-                                <span class="director">감독: {{movie.directors}}</span>
-                                <span class="actor">배우: {{movie.actors}}</span>
-                                <span class="btn_detail">자세히 보기</span>
-                            </div>
-                            <img src="{{movie.poster_url}}" alt="Movie Poster" width="224" height="320">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-    <div class="row my-5">
-        {% for movie in movie3 %}
-            <div class="col-sm-3">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <a href="{% url 'movies:detail' movie_id=movie.id %}">
-                            <div class="overlay">
-                                <span class="tit">{{movie.movie_name_ko}}</span>
-                                <span class="director">감독: {{movie.directors}}</span>
-                                <span class="actor">배우: {{movie.actors}}</span>
-                                <span class="btn_detail">자세히 보기</span>
-                            </div>
-                            <img src="{{movie.poster_url}}" alt="Movie Poster" width="224" height="320">
-                        </a>
-                    </div>
-                </div>
-            </div>
+            {% if forloop.counter == 4 or forloop.counter == 8 %}
+        </div>
+        <div class="row my-5">
+            {% endif %}
         {% endfor %}
         <div class="col-sm-3">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <img alt="광고" width="224" height="320">
+                    <img src="{% static 'img/advertise.png' %}" alt="광고" width="224" height="320">
                 </div>
             </div>
         </div>
         <div class="col-sm-3">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <img alt="광고" width="224" height="320">
+                    <img src="{% static 'img/advertise.png' %}" alt="광고" width="224" height="320">
                 </div>
             </div>
         </div>
