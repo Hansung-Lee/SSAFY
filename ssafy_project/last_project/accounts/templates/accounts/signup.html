@@ -1,20 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
+
 {% block container %}
 
 <title>Signup</title>
 
 <div class="card" style="width: 60rem;">
-  <img src="{% static 'accounts/signup.png' %}"  height="230" class="card-img-top" >
-  <div class="card-body">
+    <img src="{% static 'accounts/signup.png' %}"  height="230" class="card-img-top" >
+    <div class="card-body">
 
-  <form method="post" >
-    {% csrf_token %}
-        {{ signup_form.as_p }} <input type="submit" value="회원가입" class="btn btn-dark" />
-    </form>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {{ signup_form | crispy }}
+            <input type="submit" value="회원가입" class="btn btn-dark" />
+        </form>
 
-{#    <p class="card-text">임시 비밀번호로 로그인이 안됩니다.</p>#}
-  </div>
+    </div>
 </div>
 
 {% endblock %}

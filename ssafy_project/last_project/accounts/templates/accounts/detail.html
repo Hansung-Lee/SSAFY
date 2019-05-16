@@ -21,11 +21,11 @@
 
 
 
-<h5>팔로우 : <a href = "{% url 'accounts:followings' profile.id %}" >{{ profile.followings.count }}</a></h5>
+<h5 class="mt-3">팔로우 : <a href = "{% url 'accounts:followings' profile.id %}" >{{ profile.followings.count }}</a></h5>
 <h5 style="display:inline" >팔로워 : <a href = "{% url 'accounts:followers' profile.id %}" >{{ profile.followers.count }}</a></h5>
 
 
-<h3 >작성한 평점 목록 {{ profile.score_set.all.count }}</h3>
+<h3 class="mt-3">작성한 평점 목록 - {{ profile.score_set.all.count }}</h3>
 <div class="list-group">
 {% for score in profile.score_set.all %}
 
@@ -39,7 +39,7 @@
         <small>  작성자 : {{ score.user.username }}</small>
 
       </a>
-
+</div>
 
 {% endfor %}
 

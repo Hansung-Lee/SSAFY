@@ -24,6 +24,7 @@ class Movie(models.Model):
     poster_url = models.TextField()
     # genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
     genre = models.TextField()
+
     def __str__(self):
         return self.movie_name_ko
 

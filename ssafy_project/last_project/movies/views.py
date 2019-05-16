@@ -162,7 +162,7 @@ def detail(request, movie_id):
 
     theaters = {
         '0056': 'CGV강남', '0001': 'CGV강변', '0229': 'CGV건대입구', '0010': 'CGV구로', '0063': 'CGV대학로',
-        '0252': 'CGV동대문', '0230': 'CGV등촌', '0009': 'CGV명동', '0105': 'CGV명동역 씨네라이브러', '0011': 'CGV목동',
+        '0252': 'CGV동대문', '0230': 'CGV등촌', '0009': 'CGV명동', '0105': 'CGV명동역 씨네라이브러리', '0011': 'CGV목동',
         '0057': 'CGV미아', '0030': 'CGV불광', '0046': 'CGV상봉', '0083': 'CGV성신여대입구', '0088': 'CGV송파',
         '0276': 'CGV수유', '0150': 'CGV신촌아트레온', '0040': 'CGV압구정', '0112': 'CGV여의도', '0059': 'CGV영등포',
         '0074': 'CGV왕십리', '0013': 'CGV용산아이파크몰', '0131': 'CGV중계', '0199': 'CGV천호', '0107': 'CGV청담씨네시티',
@@ -188,6 +188,14 @@ def detail(request, movie_id):
         r['x_axis'] = res_data1.get('addresses')[0].get('x')
         r['y_axis'] = res_data1.get('addresses')[0].get('y')
 
+    sum_score = 0
+    avg_score = 0
+    list_score = movie.score_set.all()
+    if list_score:
+        for m_score in list_score:
+            sum_score += m_score.value
+        avg_score = round(sum_score / len(list_score), 2)
+
     context = {
         'movie': movie,
         'x_axis': res_data.get('addresses')[0].get('x'),
@@ -195,6 +203,7 @@ def detail(request, movie_id):
         'theater_code': theaters,
         'theater': theaters.get(str(theatercode)),
         'restaurants': restaurants,
+        'avg_score': avg_score,
     }
 
     return render(request, 'movies/detail.html', context)
@@ -203,7 +212,20 @@ def detail(request, movie_id):
 @login_required
 def create_score(request, movie_id):
     if request.method == 'POST':
-        movie = get_object_or_404(Movie, id=movie_id)
+        score = ScoreForm(request.POST)
+        if score.is_valid():
+            form = score.save(commit=False)
+            form.movie_id = movie_id
+            form.user = request.user
+            form.save()
+            return redirect('movies:detail', movie_id=movie_id)
+        return redirect('movies:detail', movie_id=movie_id)
+    return redirect('movies:detail')
+
+
+@login_required
+def create_score(request, movie_id):
+    if request.method == 'POST':
         score = ScoreForm(request.POST)
         if score.is_valid():
             form = score.save(commit=False)
@@ -241,4 +263,4 @@ def update_score(request, score_id, movie_id):
             return redirect('movies:detail', movie_id=movie_id)
     else:
         form = ScoreForm(instance=score)
-        return render(request, 'movies/update.html', {'form' : form,'movie':movie})
+        return render(request, 'movies/update.html', {'form': form, 'movie': movie})

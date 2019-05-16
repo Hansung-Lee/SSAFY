@@ -8,13 +8,30 @@
 {% block body %}
 <div class="jumbotron">
     <div class="container">
-        <h1 class="display-4"><img src="{{movie.poster_url}}" alt="Movie Poster" width="250" height="300"> {{movie.movie_name_ko}}</h1>
-        <p class="lead"> {{movie.genre}} | {{movie.showTm}}분| {{movie.openDt}} 개봉 | {{movie.watch_grade_nm}} | 누적관객: {{movie.audience}}명</p>
-        <p class="lead"> 감독: {{movie.directors}}</p>
-        <p class="lead"> 출연: {{movie.actors}}</p>
-        <hr class="my-4">
-        <p>{{movie.description}}</p>
-        <a class="btn btn-primary" href="{% url 'movies:movie_list' %}" role="button">목록</a>
+        <div class="card mb-3" style="max-width: 1200px;">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="{{movie.poster_url}}" class="card-img" alt="Movie Poster" width="320" height="550">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h1 class="card-title mb-0">{{movie.movie_name_ko}} </h1>
+                        <p class="card-text" ><small class="text-muted">{{movie.movie_name_en}}</small></p>
+                        <p class="card-text"> 관람연령 : {{movie.watch_grade_nm}}</p>
+                        <p class="card-text"> 장르 : {{movie.genre}} | {{movie.showTm}}분 </p>
+                        <p class="card-text"> 개봉일 : {{movie.openDt}} 개봉</p>
+                        <p class="card-text"> 누적관객 : {{movie.audience}}명</p>
+
+                        {% if avg_score %}
+                            <p class="card-text"> 평균 평점 : {{ avg_score }}</p>
+                        {% endif %}
+                        <hr>
+                        <p class="card-text"><small class="text-muted">{{movie.description}}</small></p>
+                        <a class="btn btn-dark" href="{% url 'movies:movie_list' %}" role="button">목록으로</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
@@ -38,7 +55,7 @@
         <tbody>
             <tr>
                 {% for key, value in theater_code.items %}
-                    <td><a href="./?theaterCode={{ key }}" >{{ value }}</a></td>
+                    <td><a href="./?theaterCode={{ key }}" class="btn btn-sm" role="button" aria-pressed="true">{{ value }}</a></td>
                     {% if forloop.counter == 6 or forloop.counter == 12 or forloop.counter == 18 or forloop.counter == 24 or forloop.counter == 30 %}
                         </tr>
                         <tr>
@@ -242,30 +259,29 @@
 
 <h2>영화 평가 목록</h2>
 
-
 {% if user.is_authenticated %}
 
 <form method="POST" action= "{% url 'movies:create_score' movie.id %}">
-  {% csrf_token %}
+    {% csrf_token %}
     <div>
         <ul>
-          <li> 평가 <input type="text" class="form-control" name="content" placeholder="평가를 입력해주세요."></li>
-          <li> 평점 <input type="number" class="form-control" name="value" placeholder="평점을 선택해주세요."></li>
+            <li> 평가 <input type="text" class="form-control" name="content" placeholder="평가를 입력해주세요."></li>
+            <li> 평점 <input type="number" class="form-control" name="value" placeholder="평점을 선택해주세요."></li>
         </ul>
-      <button type = "submit" class="btn btn-dark" >등록하기</button>
+        <button type = "submit" class="btn btn-dark" >등록하기</button>
     </div>
 </form>
 <hr>
 
 {% else %}
 <form method="POST" action= "{% url 'accounts:login' %}">
-  {% csrf_token %}
+    {% csrf_token %}
     <div>
         <ul>
-          <li> 평가 <input type="text" class="form-control" name="content" placeholder="로그인 후 이용가능한 서비스입니다."></li>
-          <li> 평점 <input type="number" class="form-control" name="value" placeholder="로그인 후 이용가능한 서비스입니다."></li>
+            <li> 평가 <input type="text" class="form-control" name="content" placeholder="로그인 후 이용가능한 서비스입니다."></li>
+            <li> 평점 <input type="number" class="form-control" name="value" placeholder="로그인 후 이용가능한 서비스입니다."></li>
         </ul>
-      <button type = "submit" class="btn btn-light" >로그인</button>
+        <button type = "submit" class="btn btn-light" >로그인</button>
     </div>
 </form>
 <hr>
@@ -274,29 +290,29 @@
 
 <div class="list-group">
     {% for score in movie.score_set.all %}
-      <a href="{% url 'accounts:detail' score.user.id %}" class="list-group-item list-group-item-action">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">평가 : {{ score.content}}</h5>
-          <small>{{ score.created_at }}</small>
-        </div>
-        <h5 class="mb-1">  ★★★★★ : {{score.value}}</h5>
-        <small>  작성자 : {{ score.user.username }}</small>
+        <a href="{% url 'accounts:detail' score.user.id %}" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">평가 : {{ score.content}}</h5>
+                <small>{{ score.created_at }}</small>
+            </div>
+            <h5 class="mb-1">  ★★★★★ : {{score.value}}</h5>
+            <small>  작성자 : {{ score.user.username }}</small>
 
-          <div>
-              {% if user == score.user %}
+            <div>
+                {% if user == score.user %}
                 <hr>
                 <form method="POST" action="{% url 'movies:delete' movie.id score.id %}" style="display:inline">
-                  {% csrf_token %}
-                  <button type="submit" class="btn btn-dark">삭제</button>
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-dark">삭제</button>
                 </form>
 
                 <form method="GET" action="{% url 'movies:update' movie.id score.id %}" style="display:inline">
-                  <button type="submit" class="btn btn-dark">수정</button>
+                    <button type="submit" class="btn btn-dark">수정</button>
                 </form>
-              {% endif %}
-          </div>
-      </a>
-{% endfor %}
+                {% endif %}
+            </div>
+        </a>
+    {% endfor %}
 </div>
 
 {% endblock %}

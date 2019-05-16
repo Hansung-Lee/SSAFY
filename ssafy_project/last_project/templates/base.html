@@ -13,17 +13,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
-    <!-- font awesome-->
+    <!-- font awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/1.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon.png' %}">
 
     {% block title %}
     {% endblock %}
 </head>
-<body>
+<body style="font-family: 'Noto Sans KR', sans-serif;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="/movie/"><img src="{% static 'img/mom_logo.png' %}" alt="logo" width="30" height="30"> LIFE THEATER </a>
+        <a class="navbar-brand" href="/movie/"><img class="mr-1" src="{% static 'img/mom_logo.png' %}" alt="logo" width="50" height="50"> LIFE THEATER </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -61,6 +61,23 @@
         {% endblock %}
     </div>
 </body>
-<hr>
-  <p > </p>
+
+<footer class="footer mt-5 py-3 text-muted bg-light">
+  <div class="container">
+    <p class="float-right">
+      <a href="#">Top</a>
+    </p>
+    <p>본 콘텐츠의 저작권은 저작권자 또는 제공처에 있으며, 이를 무단 이용하는 경우 저작권법 등에 따라 법적 책임을 질 수 있습니다.</p>
+    <p>
+        사업자등록번호 : 220-61-42412 <span> 신고번호 </span> : 서울강남 제 2019 - 157호 <span> 대표이사 : 김경태, 이한성</span><br>
+        주소 : 서울특별시 강남구 테헤란로 212 702호 <span>광고문의 : 02-3429-5364</span>
+    </p>
+    <address>
+        <a><img src="{% static 'img/favicon.png' %}" width="15" height="auto" alt="MOM"></a><!-- N=a:fot.nhn -->
+        <em>Copyright ©</em>
+        <a href="http://edu.ssafy.com/" target="_blank">MOM Corp.</a><!-- N=a:fot.corp -->
+        <span>All Rights Reserved.</span>
+    </address></div>
+</footer>
+
 </html>

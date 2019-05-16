@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %}
 <title>Update</title>
@@ -6,13 +7,32 @@
 
 {% block body %}
 <div class="jumbotron">
-    <h1 class="display-4"><img src="{{movie.poster_url}}" alt="Movie Poster" width="250" height="300"> {{movie.movie_name_ko}}</h1>
-    <p class="lead"> {{movie.genre}} | {{movie.showTm}}분| {{movie.openDt}} 개봉 | {{movie.watch_grade_nm}} | 누적관객: {{movie.audience}}명</p>
-    <p class="lead"> 감독: {{movie.directors}}</p>
-    <p class="lead"> 출연: {{movie.actors}}</p>
-    <hr class="my-4">
-    <p>{{movie.description}}</p>
-    <a class="btn btn-dark" href="{% url 'movies:movie_list' %}" role="button">영화 목록으로</a>
+    <div class="container">
+        <div class="card mb-3" style="max-width: 1200px;">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="{{movie.poster_url}}" class="card-img" alt="Movie Poster" width="320" height="550">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h1 class="card-title mb-0">{{movie.movie_name_ko}} </h1>
+                        <p class="card-text" ><small class="text-muted">{{movie.movie_name_en}}</small></p>
+                        <p class="card-text"> 관람연령 : {{movie.watch_grade_nm}}</p>
+                        <p class="card-text"> 장르 : {{movie.genre}} | {{movie.showTm}}분 </p>
+                        <p class="card-text"> 개봉일 : {{movie.openDt}} 개봉</p>
+                        <p class="card-text"> 누적관객 : {{movie.audience}}명</p>
+
+                        {% if avg_score %}
+                            <p class="card-text"> 평균 평점 : {{ avg_score }}</p>
+                        {% endif %}
+                        <hr>
+                        <p class="card-text"><small class="text-muted">{{movie.description}}</small></p>
+                        <a class="btn btn-dark" href="{% url 'movies:movie_list' %}" role="button">목록으로</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 
@@ -23,8 +43,8 @@
 <div class="card mb-3">
     <div class="card-body">
         <form method = "POST">
-          {% csrf_token %}
-            {{ form.as_p }}
+            {% csrf_token %}
+            {{ form | crispy }}
             <input type="submit" value="수정하기" class="btn btn-dark"/>
         </form>
     </div>
